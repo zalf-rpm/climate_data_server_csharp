@@ -1,13 +1,13 @@
 @0xe4a500b7cd054877;
 
-using Cxx = import "c++.capnp";
+using Cxx = import "/capnp/c++.capnp";
 $Cxx.namespace("mas::rpc");
 
 using Common = import "common.capnp".Common;
 using Model = import "model.capnp".Model;
 using Geo = import "geo_coord.capnp".Geo;
 
-struct Climate {
+struct ClimateData {
 
   enum Element {
     tmin @0; # [°C]
@@ -76,10 +76,15 @@ struct Climate {
 
     subheader @6 (elements :List(Element)) -> (timeSeries :TimeSeries);
     # create a time series with just the given header elements
-  }
 
-  interface Test {
-    timeSeries @0 () -> (capHolder :Common.CapHolder);
+    simulationInfo @7 () -> (simulationInfo :Common.IdInformation);
+    # which simulation does the time series belong to
+
+    scenarioInfo @8 () -> (scenarioInfo :Common.IdInformation);
+    # which scenario does the time series belong to
+
+    realizationInfo @9 () -> (realizationInfo :Common.IdInformation);
+    # which realization does the time series belong to
   }
 
   interface Simulation extends(Common.Identifiable) {
@@ -95,7 +100,7 @@ struct Climate {
   interface Scenario extends(Common.Identifiable) {
     # represents a climate scenario of a particular climate simulation
 
-    simulation @0 () -> (simulation :Simulation);
+    simulationInfo @0 () -> (simulationInfo :Common.IdInformation);
     # the climate simulation the scenario belongs to
 
     realizations @1 () -> (realizations :List(Realization));
@@ -105,12 +110,20 @@ struct Climate {
   interface Realization extends(Common.Identifiable) {
     # represents a realization of a particular climate scenario
 
-    scenario @0 () -> (scenario :Scenario);
+    scenarioInfo @0 () -> (scenarioInfo :Common.IdInformation);
     # the climate scenario this realization belongs to
 
-    closestTimeSeriesAt @1 (geoCoord :Geo.Coord) -> (timeSeries :TimeSeries);
+    closestTimeSeriesAt @1 (geoCoord :Geo.Coord) -> (timeSeries :List(TimeSeries));
     # closest TimeSeries object which represents the whole time series 
     # of the climate realization at the give climate coordinate
   }
-   
+
+  interface Service extends(Common.Identifiable) {
+    getAvailableSimulations @0 () -> (availableSimulations :List(Simulation));
+    # get a list of all available simulations
+
+    getSimulation @1 (id :UInt64) -> (simulation :Simulation);
+    # get a reference to the simulation with given id
+  }
+
 }

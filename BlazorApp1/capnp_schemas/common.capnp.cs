@@ -726,7 +726,7 @@ namespace Mas.Rpc
                 where TObject : class
             {
                 var in_ = CapnpSerializable.Create<Mas.Rpc.Common.Registry.Params_register<TObject>>(d_);
-                return Impatient.MaybeTailCall(Impl.Register(in_.Object, in_.RegistrationToken, cancellationToken_), unregister =>
+                return Impatient.MaybeTailCall(Impl.Register<TObject>(in_.Object, in_.RegistrationToken, cancellationToken_), unregister =>
                 {
                     var s_ = SerializerState.CreateForRpc<Mas.Rpc.Common.Registry.Result_register<TObject>.WRITER>();
                     var r_ = new Mas.Rpc.Common.Registry.Result_register<TObject>{Unregister = unregister};

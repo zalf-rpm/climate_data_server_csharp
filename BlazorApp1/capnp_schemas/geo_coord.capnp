@@ -1,11 +1,11 @@
 @0x9090542079c7fc24;
 
-using Cxx = import "c++.capnp";
+using Cxx = import "/capnp/c++.capnp";
 $Cxx.namespace("mas::rpc");
 
-#using Go = import "lang/go.capnp";
-#$Go.package("geo");
-#$Go.import("geo_coord.capnp");
+using Go = import "/lang/go.capnp";
+$Go.package("geo");
+$Go.import("geo_coord.capnp");
 
 struct Geo {
   # namespace for the geo coord datastructures

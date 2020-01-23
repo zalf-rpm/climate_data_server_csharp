@@ -1,7 +1,7 @@
 @0xf3c1b27d6da9d0fa;
 
-using Cxx = import "c++.capnp";
-#using Cxx = import "/capnp/c++.capnp";
+#using Cxx = import "lang/c++.capnp";
+using Cxx = import "/capnp/c++.capnp";
 $Cxx.namespace("mas::rpc");
 
 using Common = import "common.capnp".Common;

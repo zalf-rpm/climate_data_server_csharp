@@ -23,11 +23,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Capnp.Net.Runtime" Version="1.2.0-local1910280914" />
-    <PackageReference Include="CapnpC.CSharp.MsBuild.Generation" Version="1.1.0-local1910280914" />
+    <PackageReference Include="Capnp.Net.Runtime" Version="1.2.138" />
+    <PackageReference Include="CapnpC.CSharp.MsBuild.Generation" Version="1.2.138" />
   </ItemGroup>
 
   <ItemGroup>
+    <CapnpFiles Update="capnp_schemas\climate_data.capnp">
+      <ImportPaths Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">capnp_schemas</ImportPaths>
+    </CapnpFiles>
+    <CapnpFiles Update="capnp_schemas\cluster_admin_service.capnp">
+      <ImportPaths Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">capnp_schemas</ImportPaths>
+    </CapnpFiles>
+    <CapnpFiles Update="capnp_schemas\common.capnp">
+      <ImportPaths Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">capnp_schemas</ImportPaths>
+    </CapnpFiles>
+    <CapnpFiles Update="capnp_schemas\date.capnp">
+      <ImportPaths Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">capnp_schemas</ImportPaths>
+    </CapnpFiles>
+    <CapnpFiles Update="capnp_schemas\geo_coord.capnp">
+      <ImportPaths Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">capnp_schemas</ImportPaths>
+    </CapnpFiles>
+    <CapnpFiles Update="capnp_schemas\model.capnp">
+      <ImportPaths Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">capnp_schemas</ImportPaths>
+    </CapnpFiles>
     <CapnpFiles Update="climate_data.capnp">
       <ImportPaths Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">C:\Users\berg.ZALF-AD\GitHub\capnproto\c++\src;</ImportPaths>
     </CapnpFiles>

@@ -1,11 +1,11 @@
 @0x9273388a9624d430;
 
-using Cxx = import "c++.capnp";
+using Cxx = import "/capnp/c++.capnp";
 $Cxx.namespace("mas::rpc");
 
 using Common = import "common.capnp".Common;
 using Geo = import "geo_coord.capnp".Geo;
-using Climate = import "climate_data.capnp".Climate;
+using ClimateData = import "climate_data.capnp".ClimateData;
 
 struct Model {
 
@@ -40,10 +40,10 @@ struct Model {
   interface ClimateInstance extends(Common.Identifiable) {
     # an interface to run a "climate" model, which is basically using just climate data
 
-    run @0 (timeSeries :Climate.TimeSeries) -> (result :XYResult);
+    run @0 (timeSeries :ClimateData.TimeSeries) -> (result :XYResult);
     # run model just on a single time series
 
-    runSet @1 (dataset :List(Climate.TimeSeries)) -> (result :XYPlusResult);
+    runSet @1 (dataset :List(ClimateData.TimeSeries)) -> (result :XYPlusResult);
     # run model on a set of time series
   }
   
@@ -53,21 +53,23 @@ struct Model {
     rest @0 :Common.StructuredText;
     # rest of environment, encoded as some structured text format
 
-    timeSeries @1 :Climate.TimeSeries;
+    timeSeries @1 :ClimateData.TimeSeries;
     # climate data  
 
     #soilProfile @2 :Soil.Profile;
     # soil profile to use for a model run
   }
-   
-   
-  interface EnvInstance extends(Common.Identifiable, Common.Stopable) {
+
+  interface A {}
+
+  using Common.Stopable;
+
+  interface EnvInstance extends(Common.Identifiable, A, Common.Stopable) {
     # an interface to run a model against an environment of input data
 
     run @0 (env :Env) -> (result :Common.StructuredText);
     # run a model via an input environment and return result as some structured text
   }
-
 
   interface EnvInstanceProxy extends(EnvInstance) {
     # the EnvInstance interface with the ability to forward run messages to registered EnvInstances

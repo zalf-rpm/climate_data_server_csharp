@@ -1,14 +1,13 @@
 @0x99f1c9a775a88ac9;
 
-using Persistent = import "persistent.capnp";
+using Persistent = import "/capnp/persistent.capnp";
 
-using Cxx = import "c++.capnp";
-#using Cxx = import "/capnp/c++.capnp";
+using Cxx = import "/capnp/c++.capnp";
 $Cxx.namespace("mas::rpc");
 
-#using Go = import "lang/go.capnp";
-#$Go.package("common");
-#$Go.import("common");
+using Go = import "/lang/go.capnp";
+$Go.package("common");
+$Go.import("common");
 
 struct Common {
 
